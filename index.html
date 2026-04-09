@@ -1,403 +1,891 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maddy..ish — Event Producer & Community Builder</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Fraunces:ital,wght@0,300;0,600;1,300&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>maddy..ish</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --cream: #ECE3DC;
-    --navy: #3A2119;
-    --navy-mid: #5C3526;
-    --blue: #79A3C3;
-    --blue-pale: #D2E2EC;
-    --coral: #EA785B;
-    --muted: #7A6058;
-    --border: #D4C4BA;
-    --white: #FAF6F2;
-    --dark: #410016;
-    --dark-mid: #6B1A2E;
-  }
+    :root {
+      --burgundy: #3d0c1c;
+      --burgundy-mid: #5a1428;
+      --clay: #c4694a;
+      --clay-light: #d4856b;
+      --stone: #e8e2db;
+      --stone-mid: #d9d2c8;
+      --stone-dark: #b8afa3;
+      --ink: #1e1410;
+      --white: #faf8f5;
+      --blue-soft: #7a9db5;
+    }
 
-  html { scroll-behavior: smooth; overflow-x: hidden; }
-  body { background: var(--cream); color: var(--navy); font-family: 'DM Sans', sans-serif; font-weight: 400; overflow-x: hidden; }
+    html { scroll-behavior: smooth; }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 24px;
-    background: rgba(236,227,220,0.95); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  .nav-logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--navy); text-decoration: none; }
-  .nav-logo span { color: var(--coral); }
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 28px;
+      background: var(--stone);
+      border-bottom: 1px solid var(--stone-mid);
+    }
 
-  .nav-links { display: flex; gap: 28px; list-style: none; }
-  .nav-links a { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; font-weight: 500; }
-  .nav-links a:hover { color: var(--navy); }
+    .nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      text-decoration: none;
+    }
 
-  @media (max-width: 600px) { .nav-links { display: none; } }
+    .nav-logo span { color: var(--clay); }
 
-  /* HERO */
-  .hero {
-    min-height: 100vh; display: flex; align-items: center;
-    padding: 120px 24px 80px; position: relative; overflow: hidden;
-    background: var(--dark);
-  }
+    /* HERO */
+    #hero {
+      min-height: 100svh;
+      background: var(--burgundy);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 100px 28px 60px;
+      position: relative;
+      overflow: hidden;
+    }
 
-  .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15; }
-  .hero-blob.b1 { width: 400px; height: 400px; background: var(--blue); top: -100px; right: -80px; animation: float 8s ease-in-out infinite; }
-  .hero-blob.b2 { width: 300px; height: 300px; background: var(--coral); bottom: -60px; left: 5%; animation: float 10s ease-in-out infinite reverse; }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(90,20,40,0.6) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    .hero-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--stone-dark);
+      border: 1px solid rgba(232,226,219,0.25);
+      display: inline-block;
+      padding: 8px 14px;
+      margin-bottom: 24px;
+      margin-top: 8px;
+    }
 
-  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-setup {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
 
-  .hero-tag {
-    display: inline-block; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
-    color: #F3D0C3; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-    font-weight: 500; padding: 8px 14px; margin-bottom: 28px;
-  }
+    .hero-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      line-height: 1.5;
+      color: rgba(232,226,219,0.55);
+      margin-bottom: 16px;
+      max-width: 520px;
+    }
 
-  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(44px, 10vw, 88px); font-weight: 700; line-height: 1.0; color: #FFFFFF; margin-bottom: 20px; }
-  .hero-title em { font-style: italic; color: var(--coral); }
+    .hero-attribution {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(232,226,219,0.3);
+      margin-bottom: 32px;
+    }
 
-  .hero-sub { font-family: 'Fraunces', serif; font-size: clamp(16px, 3vw, 22px); font-style: italic; font-weight: 300; color: rgba(255,255,255,0.65); line-height: 1.6; margin-bottom: 40px; }
+    .hero-statement {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 44px;
+    }
 
-  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-statement em {
+      font-style: italic;
+      color: var(--clay);
+    }
 
-  .btn-primary { background: var(--coral); color: #fff; padding: 14px 26px; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-decoration: none; }
-  .btn-secondary { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.8); padding: 14px 26px; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-decoration: none; }
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
 
-  /* SECTIONS */
-  section { padding: 80px 24px; }
-  .section-inner { max-width: 860px; margin: 0 auto; }
-  .section-eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--coral); font-weight: 500; margin-bottom: 14px; }
-  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; line-height: 1.15; color: var(--navy); margin-bottom: 20px; }
-  .section-title em { font-style: italic; color: var(--blue); }
+    .btn-primary {
+      background: var(--clay);
+      color: var(--white);
+      border: none;
+      padding: 14px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
 
-  /* ABOUT */
-  #about { background: var(--white); }
+    .btn-primary:hover { background: var(--clay-light); }
 
-  .about-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
-  @media (min-width: 700px) { .about-grid { grid-template-columns: 1fr 1fr; gap: 56px; } }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(232,226,219,0.4);
+      padding: 14px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s;
+    }
 
-  .about-body { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 300; line-height: 1.8; color: var(--navy-mid); }
-  .about-body p { margin-bottom: 18px; }
-  .about-body p:last-child { margin-bottom: 0; }
-  .about-body strong { font-weight: 600; color: var(--navy); }
+    .btn-outline:hover { border-color: rgba(232,226,219,0.8); }
 
-  .about-facts { display: flex; flex-direction: column; gap: 3px; }
+    /* SECTIONS */
+    section { padding: 80px 28px; }
 
-  .fact-item { background: var(--cream); border: 1px solid var(--border); padding: 18px 20px; display: flex; align-items: flex-start; gap: 14px; }
-  .fact-icon { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--coral); flex-shrink: 0; margin-top: 3px; }
-  .fact-text { font-size: 13px; line-height: 1.6; color: var(--muted); }
-  .fact-text strong { display: block; font-size: 12px; font-weight: 500; color: var(--navy); margin-bottom: 2px; }
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 20px;
+      display: block;
+    }
 
-  /* WORK */
-  #work { background: var(--cream); }
+    .section-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 28px;
+    }
 
-  .work-intro { font-size: 15px; line-height: 1.75; color: var(--muted); margin-bottom: 40px; }
+    .section-heading em { font-style: italic; color: var(--blue-soft); }
+    .section-heading em.clay { color: var(--clay); }
 
-  .events-grid { display: flex; flex-direction: column; gap: 3px; }
+    .section-intro {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: #4a3f38;
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
 
-  .event-item {
-    background: var(--white); border: 1px solid var(--border); padding: 24px;
-    display: block; transition: border-color 0.2s;
-  }
-  .event-item:hover { border-color: var(--blue); }
-  .event-item.featured { background: var(--dark); border-color: var(--dark); }
+    /* ABOUT */
+    #about { background: var(--white); }
 
-  .featured-pill { display: inline-block; background: var(--coral); color: #fff; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; padding: 4px 10px; margin-bottom: 10px; }
+    .about-body p {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: #3d3028;
+      margin-bottom: 22px;
+      max-width: 580px;
+    }
 
-  .event-meta-name { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; color: var(--navy); margin-bottom: 4px; line-height: 1.3; }
-  .event-item.featured .event-meta-name { color: #FFFFFF; }
+    .about-body p strong { font-weight: 500; color: var(--ink); }
 
-  .event-meta-venue { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 20px; }
-  .event-item.featured .event-meta-venue { color: #F3D0C3; }
+    .about-facts {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
 
-  .event-results { display: flex; flex-direction: column; gap: 10px; }
+    .fact-item {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 18px 0;
+      border-top: 1px solid var(--stone-mid);
+    }
 
-  .result-row { display: flex; flex-direction: row; align-items: baseline; gap: 12px; }
+    .fact-item:last-child { border-bottom: 1px solid var(--stone-mid); }
 
-  .result-num { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--blue); line-height: 1; min-width: 72px; flex-shrink: 0; }
-  .event-item.featured .result-num { color: var(--coral); }
+    .fact-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--clay);
+      padding-top: 2px;
+    }
 
-  .result-label { font-size: 12px; color: var(--muted); line-height: 1.4; }
-  .event-item.featured .result-label { color: rgba(255,255,255,0.55); }
+    .fact-content strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
 
-  @media (min-width: 640px) {
-    .event-item { display: grid; grid-template-columns: 1fr 2fr; gap: 28px; align-items: start; padding: 28px; }
-    .event-meta-venue { margin-bottom: 0; }
-    .event-results { flex-direction: row; gap: 0; display: grid; grid-template-columns: repeat(3, 1fr); }
-    .result-row { flex-direction: column; gap: 4px; }
-    .result-num { min-width: unset; font-size: 26px; }
-    .result-label { font-size: 11px; }
-  }
+    .fact-content span {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: #6b5c52;
+      line-height: 1.5;
+    }
 
-  .footnote { font-size: 11px; color: var(--muted); margin-top: 12px; line-height: 1.6; }
+    /* WORK */
+    #work { background: var(--stone); }
 
-  /* TESTIMONIAL */
-  .testimonial-band { background: var(--dark); padding: 64px 24px; }
-  .testimonial-inner { max-width: 740px; margin: 0 auto; text-align: center; }
-  .testimonial-quote { font-family: 'Fraunces', serif; font-size: clamp(16px, 3vw, 22px); font-style: italic; font-weight: 300; color: #FFFFFF; line-height: 1.75; margin-bottom: 24px; }
-  .testimonial-attr { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #F3D0C3; font-weight: 500; }
+    .work-intro-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+      line-height: 1.7;
+      color: #4a3f38;
+      max-width: 560px;
+      margin-bottom: 10px;
+    }
 
-  /* SERVICES */
-  #services { background: var(--white); }
-  .services-intro { font-size: 15px; line-height: 1.75; color: var(--muted); margin-bottom: 40px; }
+    .work-bridge {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: #7a6d65;
+      font-style: italic;
+      margin-bottom: 48px;
+    }
 
-  .services-grid { display: flex; flex-direction: column; gap: 3px; }
+    .event-card {
+      padding: 32px 28px;
+      margin-bottom: 16px;
+    }
 
-  .service-item { background: var(--cream); border: 1px solid var(--border); padding: 28px; transition: border-color 0.2s; }
-  .service-item:hover { border-color: var(--coral); }
+    .event-card.featured { background: var(--burgundy); }
+    .event-card:not(.featured) { background: var(--white); }
 
-  .service-item.service-featured { background: var(--white); border-color: var(--coral); }
+    .event-badge {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--clay);
+      color: var(--white);
+      display: inline-block;
+      padding: 5px 10px;
+      margin-bottom: 18px;
+    }
 
-  @media (min-width: 640px) {
-    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
-    .service-item.service-featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 2fr; gap: 28px; }
-  }
+    .event-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.3rem;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
 
-  .service-tag { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--coral); font-weight: 600; margin-bottom: 8px; }
-  .service-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
-  .service-desc { font-size: 14px; line-height: 1.8; color: var(--muted); }
+    .event-card.featured .event-title { color: var(--white); }
+    .event-card:not(.featured) .event-title { color: var(--ink); }
 
-  /* CONTACT */
-  #contact { background: var(--dark); text-align: center; }
-  #contact .section-title { color: #FAF6F2; }
-  #contact .section-title em { color: var(--coral); }
-  #contact .section-eyebrow { color: #F3D0C3; }
+    .event-meta {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone-dark);
+      margin-bottom: 20px;
+    }
 
-  .contact-sub { font-family: 'Fraunces', serif; font-size: 17px; font-style: italic; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.7; max-width: 440px; margin: 0 auto 36px; }
+    .event-story {
+      font-size: 0.92rem;
+      font-weight: 300;
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
 
-  .contact-links { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  @media (min-width: 500px) { .contact-links { flex-direction: row; justify-content: center; } }
+    .event-card.featured .event-story { color: rgba(232,226,219,0.85); }
+    .event-card:not(.featured) .event-story { color: #4a3f38; }
 
-  .contact-pill { display: block; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); padding: 14px 22px; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; transition: background 0.2s; text-align: center; }
-  .contact-pill:hover { background: rgba(255,255,255,0.1); }
-  .contact-pill.primary { background: var(--coral); border-color: var(--coral); }
-  .contact-pill.primary:hover { background: #d4614a; }
+    .event-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 20px;
+    }
 
-  /* FOOTER */
-  footer { background: #2A0010; padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
-  @media (min-width: 500px) { footer { flex-direction: row; justify-content: space-between; } }
+    .event-card.featured .event-stats { border-top: 1px solid rgba(232,226,219,0.15); }
+    .event-card:not(.featured) .event-stats { border-top: 1px solid var(--stone-mid); }
 
-  .footer-logo { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: rgba(255,255,255,0.35); }
-  .footer-logo span { color: var(--coral); opacity: 0.5; }
-  .footer-note { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.08em; }
+    .stat-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
 
-  /* PARTNERSHIPS */
-  #partnerships { background: var(--cream); }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.6rem;
+      line-height: 1;
+      color: var(--clay);
+      min-width: 88px;
+    }
 
-  .partnerships-intro { font-size: 15px; line-height: 1.75; color: var(--muted); max-width: 560px; margin-bottom: 48px; }
+    .stat-label { font-size: 0.8rem; font-weight: 300; }
 
-  .partner-card { background: var(--white); border: 1px solid var(--border); padding: 32px; display: grid; grid-template-columns: 1fr; gap: 32px; transition: border-color 0.2s; }
-  @media (min-width: 700px) { .partner-card { grid-template-columns: 1fr 1fr; } }
-  .partner-card:hover { border-color: var(--coral); }
+    .event-card.featured .stat-label { color: rgba(232,226,219,0.7); }
+    .event-card:not(.featured) .stat-label { color: #6b5c52; }
 
-  .partner-name { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
-  .partner-location { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 18px; }
+    .work-footnote {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: #8a7d75;
+      font-style: italic;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
 
-  .partner-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
-  .partner-tag { background: var(--blue-pale); color: var(--navy); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; padding: 5px 10px; }
+    /* TESTIMONIAL */
+    .testimonial-block {
+      background: var(--burgundy);
+      padding: 64px 28px;
+      text-align: center;
+    }
 
-  .partner-stat { display: flex; align-items: baseline; gap: 10px; padding: 16px 0; border-top: 1px solid var(--border); }
-  .partner-stat-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--coral); line-height: 1; }
-  .partner-stat-label { font-size: 13px; color: var(--muted); line-height: 1.4; }
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.05rem, 3.5vw, 1.4rem);
+      line-height: 1.75;
+      color: rgba(232,226,219,0.9);
+      max-width: 560px;
+      margin: 0 auto 24px;
+    }
 
-  .partner-testimonial { background: var(--cream); border-left: 3px solid var(--coral); padding: 24px 28px; }
-  .partner-testimonial-quote { font-family: 'Fraunces', serif; font-size: 15px; font-style: italic; font-weight: 300; color: var(--navy-mid); line-height: 1.75; margin-bottom: 14px; }
-  .partner-testimonial-attr { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--coral); font-weight: 500; }
-</style>
+    .testimonial-attr {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--stone-dark);
+    }
+
+    /* SERVICES */
+    #services { background: var(--white); }
+
+    .service-card {
+      border: 1px solid var(--stone-mid);
+      padding: 28px 24px;
+      margin-bottom: 14px;
+    }
+
+    .service-card.highlight { border-color: var(--clay); }
+
+    .consult-line {
+      margin-top: 24px;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: #4a3f38;
+      line-height: 1.6;
+    }
+
+    .consult-line a {
+      color: var(--clay);
+      text-decoration: none;
+      font-weight: 400;
+    }
+
+    .consult-line a:hover { text-decoration: underline; }
+
+    .service-type {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.78;
+      color: #4a3f38;
+    }
+
+    /* PARTNERSHIPS */
+    #partnerships { background: var(--stone); }
+
+    .partner-card {
+      background: var(--white);
+      padding: 32px 28px;
+    }
+
+    .partner-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .partner-location {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--stone-dark);
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .partner-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--stone);
+      color: #6b5c52;
+      padding: 5px 10px;
+    }
+
+    .partner-desc {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: #4a3f38;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--stone-mid);
+    }
+
+    .partner-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .partner-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 2rem;
+      color: var(--clay);
+      line-height: 1;
+    }
+
+    .partner-stat-label {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: #6b5c52;
+    }
+
+    .partner-quote {
+      border-left: 3px solid var(--clay);
+      padding-left: 18px;
+    }
+
+    .partner-quote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #4a3f38;
+      margin-bottom: 10px;
+    }
+
+    .partner-quote-attr {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clay);
+    }
+
+    /* CLOSING QUOTE */
+    .closing-quote-block {
+      background: var(--burgundy);
+      padding: 80px 28px;
+      text-align: center;
+    }
+
+    .closing-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      line-height: 1.55;
+      color: rgba(232,226,219,0.9);
+      max-width: 460px;
+      margin: 0 auto 20px;
+    }
+
+    .closing-attr {
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--stone-dark);
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--burgundy);
+      padding: 70px 28px 80px;
+      text-align: center;
+      border-top: 1px solid rgba(232,226,219,0.08);
+    }
+
+    #contact .section-label { color: var(--stone-dark); }
+    #contact .section-heading { color: var(--white); }
+    #contact .section-heading em { color: var(--clay); }
+
+    .contact-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(232,226,219,0.72);
+      max-width: 400px;
+      margin: 0 auto 44px;
+      line-height: 1.75;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .contact-link {
+      display: block;
+      width: 100%;
+      padding: 14px 20px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .contact-link.primary { background: var(--clay); color: var(--white); }
+    .contact-link.primary:hover { background: var(--clay-light); }
+    .contact-link.secondary { background: transparent; color: var(--white); border: 1px solid rgba(232,226,219,0.3); }
+    .contact-link.secondary:hover { border-color: rgba(232,226,219,0.7); }
+
+    /* FOOTER */
+    footer {
+      background: var(--burgundy);
+      border-top: 1px solid rgba(232,226,219,0.1);
+      padding: 28px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(232,226,219,0.45);
+      margin-bottom: 8px;
+    }
+
+    .footer-logo span { color: var(--clay); opacity: 0.7; }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: rgba(232,226,219,0.28);
+      letter-spacing: 0.05em;
+    }
+
+    /* ANIMATIONS */
+    .fade-in {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <a href="#" class="nav-logo">maddy<span>..</span>ish</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#partnerships">Partners</a></li>
-    <li><a href="#contact">Let's Talk</a></li>
-  </ul>
-</nav>
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">maddy<span>..</span>ish</a>
+  </nav>
 
-<section class="hero">
-  <div class="hero-blob b1"></div>
-  <div class="hero-blob b2"></div>
-  <div class="hero-content">
-    <div class="hero-tag">Event Producer · Community Builder · Naperville, IL</div>
-    <h1 class="hero-title">I bring people<br><em>back together.</em></h1>
-    <p class="hero-sub">Themed events that fill rooms, move the needle for venues, and remind people what it feels like to actually connect.</p>
-    <div class="hero-cta">
+  <!-- HERO -->
+  <section id="hero">
+    <h1 class="hero-setup">You know that feeling.</h1>
+    <p class="hero-quote">
+      An abundance of people<br>
+      who are in this together.<br>
+      Who are on your team.<br><br>
+      When the check is paid<br>
+      and you stay at the table.
+    </p>
+    <p class="hero-attribution">— Marina Keegan, The Opposite of Loneliness</p>
+    <h2 class="hero-statement">That's what I'm <em>building.</em></h2>
+    <div class="hero-tag">Event Producer &nbsp;·&nbsp; Community Builder &nbsp;·&nbsp; Naperville, IL</div>
+    <div class="hero-ctas">
       <a href="#work" class="btn-primary">See the Work</a>
-      <a href="#contact" class="btn-secondary">Let's Talk</a>
+      <a href="#contact" class="btn-outline">Let's Talk</a>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="about">
-  <div class="section-inner">
-    <div class="about-grid">
-      <div>
-        <div class="section-eyebrow">About Maddy</div>
-        <h2 class="section-title">Built for <em>belonging.</em></h2>
-        <div class="about-body">
-          <p>Everyone wants a village but nobody wants to be a villager. Early in life, community forms naturally. It often takes more effort to avoid belonging than to participate. Now that the built-in community is gone, <strong>finding my people has become a conscious pursuit.</strong></p>
-          <p>A sense of community has become a lost language. I am committed to helping keep it alive.</p>
-          <p>A while back I acted on that instinct. A local restaurant, a Tuesday night, and an idea. What started as one night turned into a series -- and every single time, the room filled up. That didn't surprise me. I've been bringing people together for as long as I can remember. It's not something I do. It's who I am.</p>
-        </div>
-      </div>
-      <div class="about-facts">
-        <div class="fact-item"><div class="fact-icon">01</div><div class="fact-text"><strong>Based in Naperville, IL</strong>Serving the greater Chicagoland area and beyond.</div></div>
-        <div class="fact-item"><div class="fact-icon">02</div><div class="fact-text"><strong>Inspired by</strong>Freakonomics, Eli Rallo, and Marina Keegan's The Opposite of Loneliness.</div></div>
-        <div class="fact-item"><div class="fact-icon">03</div><div class="fact-text"><strong>A chameleon</strong>Equally at home in a boardroom pitch or a Hannah Montana watch party. Usually both in the same week.</div></div>
-        <div class="fact-item"><div class="fact-icon">04</div><div class="fact-text"><strong>Pay it forward advocate</strong>Starts drive-thru chains, makes eye contact with strangers, and genuinely means it when she asks how you're doing.</div></div>
-        <div class="fact-item"><div class="fact-icon">05</div><div class="fact-text"><strong>Find me on TikTok</strong>@Maddy..ish</div></div>
-      </div>
+  <!-- ABOUT -->
+  <section id="about">
+    <span class="section-label">About Maddy</span>
+    <h2 class="section-heading">Built for <em>belonging.</em></h2>
+    <div class="about-body fade-in">
+      <p>Nobody warns you about this part.</p>
+      <p>For most of your life, community just happens. You're practically tripping over it. The neighborhood, the team, the lunch table, the job where everyone goes out after. You don't have to try. Belonging is just the water you're swimming in.</p>
+      <p>Then one day the structure disappears. And suddenly you're getting dressed for something you don't want to go to, standing in a room full of people feeling completely alone, wondering when exactly this got so hard.</p>
+      <p>Most people assume that's just adulthood. It's not. It's a withdrawal nobody names.</p>
+      <p><strong>I wanted to see more connection in my community. So I decided to create it.</strong></p>
     </div>
-  </div>
-</section>
 
-<section id="work">
-  <div class="section-inner">
-    <div class="section-eyebrow">The Work</div>
-    <h2 class="section-title">Events that <em>actually move the needle.</em></h2>
-    <p class="work-intro">Every event is built around a simple idea: give people a real reason to show up. Here's what happens when they do.</p>
-
-    <div class="events-grid">
-
-      <div class="event-item featured">
-        <div>
-          <div class="featured-pill">Most Recent</div>
-          <div class="event-meta-name">Hannah Montana 20th Anniversary Watch Party</div>
-          <div class="event-meta-venue">Fiammé Restaurant · March 2026</div>
-        </div>
-        <div class="event-results">
-          <div class="result-row"><div class="result-num">2×</div><div class="result-label">Hourly revenue vs. normal Tuesday</div></div>
-          <div class="result-row"><div class="result-num">84+</div><div class="result-label">Reservations -- walk-ins turned away</div></div>
-          <div class="result-row"><div class="result-num">$57</div><div class="result-label">Average check size on the night</div></div>
+    <div class="about-facts fade-in">
+      <div class="fact-item">
+        <span class="fact-num">01</span>
+        <div class="fact-content">
+          <strong>Based in Naperville, IL</strong>
+          <span>The Chicagoland suburbs are basically my backyard.</span>
         </div>
       </div>
-
-      <div class="event-item">
-        <div>
-          <div class="event-meta-name">Dancing with the Stars Finale Watch Party</div>
-          <div class="event-meta-venue">Fiammé Restaurant · November 2025</div>
-        </div>
-        <div class="event-results">
-          <div class="result-row"><div class="result-num">+131%</div><div class="result-label">Total sales lift</div></div>
-          <div class="result-row"><div class="result-num">+116%</div><div class="result-label">Cocktail sales</div></div>
-          <div class="result-row"><div class="result-num">+1222%</div><div class="result-label">Guest count vs. prior year</div></div>
+      <div class="fact-item">
+        <span class="fact-num">02</span>
+        <div class="fact-content">
+          <strong>Believes in</strong>
+          <span>Third places. Human connection. And the fact that Cheers was onto something the rest of us are still catching up to.</span>
         </div>
       </div>
-
-      <div class="event-item">
-        <div>
-          <div class="event-meta-name">Dancing with the Stars Watch Party Series</div>
-          <div class="event-meta-venue">Fiammé Restaurant · Fall 2025</div>
-        </div>
-        <div class="event-results">
-          <div class="result-row"><div class="result-num">+38%</div><div class="result-label">Total sales lift</div></div>
-          <div class="result-row"><div class="result-num">+160%</div><div class="result-label">Cocktail sales</div></div>
-          <div class="result-row"><div class="result-num">4</div><div class="result-label">Events produced in the series</div></div>
+      <div class="fact-item">
+        <span class="fact-num">03</span>
+        <div class="fact-content">
+          <strong>A chameleon</strong>
+          <span>Equally comfortable in a boardroom and at a Hannah Montana watch party. Usually both in the same week.</span>
         </div>
       </div>
-
-    </div>
-    <div class="footnote">* Nov 18 guest count decrease reflects overall dining room traffic -- cocktail sales still doubled, pointing to higher per-person spend driven by the event audience.</div>
-  </div>
-</section>
-
-<div class="testimonial-band">
-  <div class="testimonial-inner">
-    <div class="testimonial-quote">"Maddy has single-handedly taken our slow, boring Tuesday evenings and added a level of excitement to drive first time guests and increase revenues for our long-standing location. I look forward to many more collaborations with Maddy."</div>
-    <div class="testimonial-attr">Tom Kalliher -- Fiammé Restaurant, Naperville IL</div>
-  </div>
-</div>
-
-<section id="services">
-  <div class="section-inner">
-    <div class="section-eyebrow">What I Do</div>
-    <h2 class="section-title">From concept to <em>full house.</em></h2>
-    <p class="services-intro">Every business is different. Some need a full event. Some need a great video. Some just need someone who genuinely loves what they do and tells people about it. Here is how I can help.</p>
-
-    <div class="services-grid">
-      <div class="service-item service-featured">
-        <div>
-          <div class="service-tag">The Full Experience</div>
-          <div class="service-name">Event Production</div>
+      <div class="fact-item">
+        <span class="fact-num">04</span>
+        <div class="fact-content">
+          <strong>Pay it forward advocate</strong>
+          <span>Starts drive-thru chains, makes eye contact with strangers, and actually means it when she asks how you're doing.</span>
         </div>
-        <div class="service-desc">I build a themed event around your space from the ground up. Concept, promotion, themed menu, execution, hosting -- everything. You open your doors and the room fills up. This is the highest-touch offering and consistently the highest-impact one. Sold-out rooms, doubled bar sales, and guests who keep coming back.</div>
       </div>
-      <div class="service-item">
-        <div class="service-tag">The Content Play</div>
-        <div class="service-name">Content & Social Activation</div>
-        <div class="service-desc">I come in, experience what you offer, and bring my audience with me. Short-form video, authentic storytelling, and organic promotion that feels real because it is. No event required.</div>
-      </div>
-      <div class="service-item">
-        <div class="service-tag">The Ongoing Relationship</div>
-        <div class="service-name">Local Brand Partnership</div>
-        <div class="service-desc">We build something lasting. Affiliate codes, regular features, community recommendations. I become your person -- the one who sends people your way month after month.</div>
+      <div class="fact-item">
+        <span class="fact-num">05</span>
+        <div class="fact-content">
+          <strong>Find me on TikTok</strong>
+          <span>@Maddy..ish — come see what this looks like in the wild.</span>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="partnerships">
-  <div class="section-inner">
-    <div class="section-eyebrow">Brand Partnerships</div>
-    <h2 class="section-title">Local brands I <em>genuinely love.</em></h2>
-    <p class="partnerships-intro">These aren't ads. They're places I actually go, businesses I believe in, and communities I'm proud to be part of. Here's what that looks like in practice.</p>
+  <!-- WORK -->
+  <section id="work">
+    <span class="section-label">The Work</span>
+    <h2 class="section-heading">Events that actually <em class="clay">fill rooms.</em></h2>
 
-    <div class="partner-card">
-      <div>
-        <div class="partner-name">Coco Nail Bar</div>
-        <div class="partner-location">Crystal Lake, IL</div>
-        <div class="partner-tags">
-          <span class="partner-tag">TikTok Content</span>
-          <span class="partner-tag">Referral Code</span>
-          <span class="partner-tag">Brand Collab</span>
+    <p class="work-intro-quote fade-in">People are starving for a reason to show up. Not a happy hour. Not a "networking event." A real reason. The kind where you text your friend at 11pm and go — <em>did you have as much fun as I did tonight?</em></p>
+    <p class="work-bridge fade-in">That's what happens when you give a room a heartbeat. The rest follows.</p>
+
+    <div class="event-card featured fade-in">
+      <span class="event-badge">Most Recent</span>
+      <h3 class="event-title">Hannah Montana 20th Anniversary Watch Party</h3>
+      <p class="event-meta">Fiammé Restaurant &nbsp;·&nbsp; March 2026</p>
+      <p class="event-story">84 people showed up for a Tuesday night in March. Not a Saturday. Not a holiday. A Tuesday. Walk-ins got turned away. People who came alone ended up closing the place down with strangers.</p>
+      <div class="event-stats">
+        <div class="stat-row">
+          <span class="stat-num">84+</span>
+          <span class="stat-label">Reservations — walk-ins turned away</span>
         </div>
-        <p style="font-size:14px; line-height:1.8; color:var(--muted); margin-bottom: 20px;">Created organic TikTok content featuring my experience at Coco Nail Bar and gave my audience a 20% off referral code. Authentic storytelling, a real recommendation, and a community that showed up for it.</p>
-        <div class="partner-stat">
-          <div class="partner-stat-num">12</div>
-          <div class="partner-stat-label">customers through the door<br>directly from the video</div>
+        <div class="stat-row">
+          <span class="stat-num">2×</span>
+          <span class="stat-label">Hourly revenue vs. a normal Tuesday</span>
         </div>
-      </div>
-      <div class="partner-testimonial">
-        <div class="partner-testimonial-quote">"We absolutely loved working with Maddy! She is such a sweet, genuine person and brought the best energy into our salon. As a growing TikTok creator, she took the time to create a beautiful video highlighting her experience at Coco Nail Bar in Crystal Lake, and we are so grateful for her support. It truly means so much to us, and we can't wait to have her back again soon."</div>
-        <div class="partner-testimonial-attr">Coco Nail Bar — Crystal Lake, IL</div>
+        <div class="stat-row">
+          <span class="stat-num">$57</span>
+          <span class="stat-label">Average check size on the night</span>
+        </div>
       </div>
     </div>
 
-  </div>
-</section>
+    <div class="event-card fade-in">
+      <h3 class="event-title">Dancing with the Stars Finale Watch Party</h3>
+      <p class="event-meta">Fiammé Restaurant &nbsp;·&nbsp; November 2025</p>
+      <p class="event-story">The finale brought in guests who'd never set foot in Fiammé before. Strangers arguing about the mirrorball like they had money on it. The kind of night that creates regulars.</p>
+      <div class="event-stats">
+        <div class="stat-row">
+          <span class="stat-num">+131%</span>
+          <span class="stat-label">Total sales lift</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-num">+116%</span>
+          <span class="stat-label">Cocktail sales</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-num">+1,222%</span>
+          <span class="stat-label">Guest count vs. prior year</span>
+        </div>
+      </div>
+    </div>
 
-<section id="contact">
-  <div class="section-inner">
-    <div class="section-eyebrow">Let's Talk</div>
-    <h2 class="section-title">Ready to fill <em>your room?</em></h2>
-    <p class="contact-sub">Whether you're a venue, a brand, or a big idea looking for someone to bring it to life -- I'd love to hear from you.</p>
+    <div class="event-card fade-in">
+      <h3 class="event-title">Dancing with the Stars Watch Party Series</h3>
+      <p class="event-meta">Fiammé Restaurant &nbsp;·&nbsp; Fall 2025</p>
+      <p class="event-story">Four events. Every single one filled the room. A growing group of regulars who came for the show and stayed for each other.</p>
+      <div class="event-stats">
+        <div class="stat-row">
+          <span class="stat-num">+38%</span>
+          <span class="stat-label">Total sales lift across the series</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-num">+160%</span>
+          <span class="stat-label">Cocktail sales</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-num">4</span>
+          <span class="stat-label">Events produced</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="work-footnote">* Nov 18 guest count reflects overall dining room traffic — cocktail sales still doubled, pointing to higher per-person spend driven by the event audience.</p>
+  </section>
+
+  <!-- TOM TESTIMONIAL -->
+  <div class="testimonial-block">
+    <p class="testimonial-text">"Maddy has single-handedly taken our slow, boring Tuesday evenings and added a level of excitement to drive first time guests and increase revenues for our long-standing location. I look forward to many more collaborations with Maddy."</p>
+    <p class="testimonial-attr">Tom Kalliher &nbsp;—&nbsp; Fiammé Restaurant, Naperville IL</p>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <span class="section-label">What I Do</span>
+    <h2 class="section-heading">From concept to <em>full house.</em></h2>
+    <p class="section-intro">Every business is different. Some need a full event. Some need a great video. Some just need someone who genuinely loves what they do and tells people about it.</p>
+
+    <div class="service-card highlight fade-in">
+      <span class="service-type">The Full Experience</span>
+      <h3 class="service-name">Event Production</h3>
+      <p class="service-desc">You've got the space. I'll give people a reason to fill it. Concept, theme, promotion, execution, hosting — all of it. You open the doors. The rest is taken care of. This is the one that sells out rooms, doubles bar sales, and makes your regulars feel like the cool kids who found something good first.</p>
+    </div>
+
+    <div class="service-card fade-in">
+      <span class="service-type">The Content Play</span>
+      <h3 class="service-name">Content &amp; Social Activation</h3>
+      <p class="service-desc">I show up, I experience what you've built, and I bring my people with me. No script. No ad energy. Just real storytelling from someone who actually loves what you do. No event required.</p>
+    </div>
+
+    <div class="service-card fade-in">
+      <span class="service-type">The Ongoing Relationship</span>
+      <h3 class="service-name">Local Brand Partnership</h3>
+      <p class="service-desc">The long game. I become your person — the one who sends people your way month after month because I genuinely believe in what you're doing. Affiliate codes, regular features, word of mouth that actually sticks.</p>
+    </div>
+
+    <p class="consult-line fade-in">Not sure which is right for you? Let's figure it out together — first conversation is on me. <a href="#contact">Get in touch.</a></p>
+  </section>
+
+  <!-- BRAND PARTNERSHIPS -->
+  <section id="partnerships">
+    <span class="section-label">Brand Partnerships</span>
+    <h2 class="section-heading">Local brands I <em>genuinely love.</em></h2>
+    <p class="section-intro">These aren't ads. They're places I actually go, businesses I believe in, and communities I'm proud to be part of.</p>
+
+    <div class="partner-card fade-in">
+      <h3 class="partner-name">Coco Nail Bar</h3>
+      <span class="partner-location">Crystal Lake, IL</span>
+      <div class="partner-tags">
+        <span class="tag">TikTok Content</span>
+        <span class="tag">Referral Code</span>
+        <span class="tag">Brand Collab</span>
+      </div>
+      <p class="partner-desc">Created organic TikTok content featuring my experience at Coco Nail Bar and gave my audience a 20% off referral code. Authentic storytelling, a real recommendation, and a community that showed up for it.</p>
+      <div class="partner-stat">
+        <span class="partner-stat-num">12</span>
+        <span class="partner-stat-label">customers through the door directly from the video</span>
+      </div>
+      <div class="partner-quote">
+        <p>"We absolutely loved working with Maddy! She is such a sweet, genuine person and brought the best energy into our salon. As a growing TikTok creator, she took the time to create a beautiful video highlighting her experience at Coco Nail Bar in Crystal Lake, and we are so grateful for her support. It truly means so much to us, and we can't wait to have her back again soon."</p>
+        <span class="partner-quote-attr">Coco Nail Bar — Crystal Lake, IL</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING MARINA QUOTE -->
+  <div class="closing-quote-block">
+    <p class="closing-quote">"That time we did, we went, we saw, we laughed, we felt."</p>
+    <p class="closing-attr">— Marina Keegan, The Opposite of Loneliness</p>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <span class="section-label">Let's Talk</span>
+    <h2 class="section-heading">Ready to fill <em>your room?</em></h2>
+    <p class="contact-sub">Whether you're a venue, a brand, or a big idea looking for someone to bring it to life — I'd love to hear from you.</p>
     <div class="contact-links">
-      <span class="contact-pill primary">maddyyish [at] gmail.com</span>
-      <a href="https://www.tiktok.com/@maddy..ish" class="contact-pill" target="_blank">@Maddy..ish on TikTok</a>
-      <a href="https://www.linkedin.com/in/madelinewharry" class="contact-pill" target="_blank">LinkedIn</a>
+      <a id="email-btn" class="contact-link primary" style="cursor:pointer;"><span class="__cf_email__" data-cfemail="573a3633332e2e3e243f17303a363e3b7934383a">[email&#160;protected]</span></a>
+      <a href="https://www.tiktok.com/@maddy..ish" class="contact-link secondary" target="_blank">@Maddy..ish on TikTok</a>
+      <a href="https://linkedin.com" class="contact-link secondary" target="_blank">LinkedIn</a>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  <div class="footer-logo">maddy<span>..</span>ish</div>
-  <div class="footer-note">© 2026 Maddy..ish — Naperville, IL</div>
-</footer>
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-logo">maddy<span>..</span>ish</p>
+    <p class="footer-copy">&copy; 2026 Maddy..ish &nbsp;—&nbsp; Naperville, IL</p>
+  </footer>
 
-</body>
-</html>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Build email link at runtime to avoid Cloudflare scrapi
